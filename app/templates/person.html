@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ person.name }}{% endblock %}
+
+{% block content %}
+<h2>{{ person.name }}</h2>
+<p><strong>Personnummer:</strong> {{ person.personnummer }}</p>
+<p><strong>City:</strong> {{ person.city }}</p>
+<p><strong>Country:</strong> {{ person.country }}</p>
+<p><strong>Profession:</strong> {{ person.profession }}</p>
+<p><strong>Phone Number:</strong> {{ person.phone_number }}</p>
+<a href="{{ url_for('index') }}">Back to List</a>
+{% endblock %}

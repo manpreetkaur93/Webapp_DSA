@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Person List{% endblock %}
+
+{% block content %}
+<h2>Person List</h2>
+<ul>
+    {% for person in persons %}
+    <li>{{ person.name }} - <a href="{{ url_for('person', id=person.id) }}">{{ person.city }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}
