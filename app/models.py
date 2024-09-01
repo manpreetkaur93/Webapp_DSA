@@ -16,36 +16,44 @@ class Person(db.Model):
     country = db.Column(db.String(255), nullable=False)
     profession = db.Column(db.String(255), nullable=False)
     phone_number = db.Column(db.String(30), nullable=False)
-
+    is_celebrity = db.Column(db.Boolean, default=False)  # Ny kolumn för att markera om personen är en kändis
 
 def generate_unique_personnummer():
+    """Genererar ett unikt personnummer."""
     while True:
         personnummer = fake.ssn()
         if not Person.query.filter_by(personnummer=personnummer).first():
             return personnummer
 
-def generate_person():
-    """Genererar en ny person med falska data och unikt personnummer."""
+def generate_person(is_celebrity=False):
+    """Genererar en ny person med falska data och anger om personen är en kändis."""
     return Person(
         name=fake.name(),
         personnummer=generate_unique_personnummer(),
         city=fake.city(),
         country=fake.country(),
         profession=fake.job(),
-        phone_number=fake.phone_number()[:15]  # Se till att telefonnumret inte är för långt
+        phone_number=fake.phone_number()[:15],  # Se till att telefonnumret inte är för långt
+        is_celebrity=is_celebrity
     )
 
-
 def seed_database(n=10000):
-    """Skapar och sparar n antal personer i databasen."""
+    """Skapar och sparar n antal personer i databasen, inklusive en andel kändisar."""
     people = []
-    for _ in range(n):
+    # Generera några kändisar, t.ex. 10% av den totala mängden
+    for _ in range(int(n * 0.1)):  # 10% av personerna är kändisar
+        person = generate_person(is_celebrity=True)
+        people.append(person)
+    # Generera resterande vanliga personer
+    for _ in range(n - len(people)):
         person = generate_person()
         people.append(person)
+    
     db.session.bulk_save_objects(people)
     db.session.commit()
     print(f"Seedade {n} personer till databasen.")
 
 def clear_table():
+    """Tömmer Person-tabellen."""
     db.session.query(Person).delete()
     db.session.commit()

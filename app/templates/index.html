@@ -4,15 +4,35 @@
 
 {% block content %}
 <h2>Person List</h2>
+
+<!-- Sök och filtrering -->
+<form method="get" action="{{ url_for('routes.index') }}">
+    <input type="text" name="search" placeholder="Search..." value="{{ search_query }}">
+    <select name="sort_by">
+        <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
+        <option value="city" {% if sort_by == 'city' %}selected{% endif %}>City</option>
+        <option value="profession" {% if sort_by == 'profession' %}selected{% endif %}>Profession</option>
+        <option value="phone_number" {% if sort_by == 'phone_number' %}selected{% endif %}>Phone Number</option>
+    </select>
+    <select name="sort_order">
+        <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>
+        <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>
+    </select>
+    <label>
+        <input type="checkbox" name="filter_celebs" value="yes" {% if filter_celebs == 'yes' %}checked{% endif %}> Show Celebrities First
+    </label>
+    <button type="submit">Apply</button>
+</form>
+
 <ul>
     {% for person in people %}
-    <li>{{ person.name }} - <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Profil</a></li>
+    <li>{{ person.name }} - {{ person.city }} - <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Profil</a></li>
     {% endfor %}
 </ul>
 
 <div class="pagination">
     {% if pagination.has_prev %}
-        <a href="{{ url_for('routes.index', page=pagination.prev_num, prev_page=pagination.page) }}">Previous</a>
+        <a href="{{ url_for('routes.index', page=pagination.prev_num, prev_page=pagination.page, search=search_query, sort_by=sort_by, sort_order=sort_order, filter_celebs=filter_celebs) }}">Previous</a>
     {% else %}
         <span>Previous</span>
     {% endif %}
@@ -22,7 +42,7 @@
             {% if page_num == pagination.page %}
                 <strong>{{ page_num }}</strong>
             {% else %}
-                <a href="{{ url_for('routes.index', page=page_num, prev_page=pagination.page) }}">{{ page_num }}</a>
+                <a href="{{ url_for('routes.index', page=page_num, search=search_query, sort_by=sort_by, sort_order=sort_order, filter_celebs=filter_celebs) }}">{{ page_num }}</a>
             {% endif %}
         {% else %}
             <span>…</span>
@@ -30,7 +50,7 @@
     {% endfor %}
 
     {% if pagination.has_next %}
-        <a href="{{ url_for('routes.index', page=pagination.next_num, prev_page=pagination.page) }}">Next</a>
+        <a href="{{ url_for('routes.index', page=pagination.next_num, prev_page=pagination.page, search=search_query, sort_by=sort_by, sort_order=sort_order, filter_celebs=filter_celebs) }}">Next</a>
     {% else %}
         <span>Next</span>
     {% endif %}
