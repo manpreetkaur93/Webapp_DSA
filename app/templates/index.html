@@ -28,7 +28,7 @@
 
 <ul>
     {% for person in people %}
-    <li>{{ person.name }} - <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Profil</a></li>
+    <li>{{ person.name }} - <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Personsida</a></li>
     {% endfor %}
 </ul>
 
