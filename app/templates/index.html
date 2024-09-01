@@ -9,12 +9,14 @@
 <form method="get" action="{{ url_for('routes.index') }}">
     <input type="text" name="search" placeholder="Search..." value="{{ search_query }}">
     <select name="sort_by">
+        <option value="random" {% if sort_by == 'random' %}selected{% endif %}>Random Order</option>
         <option value="name" {% if sort_by == 'name' %}selected{% endif %}>Name</option>
         <option value="city" {% if sort_by == 'city' %}selected{% endif %}>City</option>
         <option value="profession" {% if sort_by == 'profession' %}selected{% endif %}>Profession</option>
         <option value="phone_number" {% if sort_by == 'phone_number' %}selected{% endif %}>Phone Number</option>
     </select>
     <select name="sort_order">
+        <option value="none" {% if sort_order == 'none' %}selected{% endif %}>No Sorting</option>
         <option value="asc" {% if sort_order == 'asc' %}selected{% endif %}>Ascending</option>
         <option value="desc" {% if sort_order == 'desc' %}selected{% endif %}>Descending</option>
     </select>
@@ -26,7 +28,7 @@
 
 <ul>
     {% for person in people %}
-    <li>{{ person.name }} -> <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Profil</a></li>
+    <li>{{ person.name }} - <a href="{{ url_for('routes.person', id=person.id, prev_page=pagination.page) }}">Profil</a></li>
     {% endfor %}
 </ul>
 

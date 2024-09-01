@@ -6,7 +6,7 @@
 # routes.py
 from flask import Blueprint, render_template, request
 from app.lru_cache import lru_cache  # Importerar din LRU-cache
-from app.models import Person
+from app.models import Person, db
 import time
 
 routes = Blueprint('routes', __name__)
@@ -34,15 +34,17 @@ def index():
         )
 
     # Sortering
-    if sort_order == 'asc':
-        query = query.order_by(getattr(Person, sort_by).asc())
+    if sort_by == 'random':
+        query = query.order_by(db.func.random())  # Blandad ordning
     else:
-        query = query.order_by(getattr(Person, sort_by).desc())
+        if sort_order == 'asc':
+            query = query.order_by(getattr(Person, sort_by).asc())
+        elif sort_order == 'desc':
+            query = query.order_by(getattr(Person, sort_by).desc())
 
-    # Filtrering för kändisar
+   # Filtrering för kändisar
     if filter_celebs == 'yes':
-        # Antag att du har en kolumn som indikerar om personen är en kändis
-        query = query.filter(Person.is_celebrity == True).union(query.filter(Person.is_celebrity == False))
+        query = query.order_by(Person.is_celebrity.desc(), getattr(Person, sort_by).asc() if sort_order == 'asc' else getattr(Person, sort_by).desc())
 
     pagination = query.paginate(page=page, per_page=20, error_out=False)
     people = pagination.items
