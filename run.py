@@ -7,5 +7,5 @@ if __name__ == '__main__':
         db.create_all()
         # Kontrollera om det redan finns data innan du seedar
         if Person.query.count() == 0:
-            seed_database(10000)  # Seeda databasen om den är tom
+            seed_database(100000)  # Seeda databasen om den är tom
     app.run(debug=True)

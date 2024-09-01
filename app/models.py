@@ -44,7 +44,7 @@ def generate_person(is_celebrity=False):
         is_celebrity=is_celebrity
     )
 
-def seed_database(n=10000):
+def seed_database(n=100000):
     """Skapar och sparar n antal personer i databasen, inklusive en andel kändisar."""
     people = []
     # Generera 10% kändisar
