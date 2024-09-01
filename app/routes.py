@@ -6,7 +6,7 @@
 # routes.py
 from flask import Blueprint, render_template, request
 from app.lru_cache import lru_cache  # Importerar din LRU-cache
-from app.model import Person
+from app.models import Person
 import time
 
 routes = Blueprint('routes', __name__)
@@ -21,8 +21,11 @@ def index():
 def person(id):
     person = lru_cache.get(id)
     if person is None:
-        # Simulerar långsam databasförfrågan med en fördröjning
-        time.sleep(5)
+        print(f"Hämtar från databasen: Person ID {id}")
+        time.sleep(5)  # Simulerar långsam databasförfrågan
         person = Person.query.get_or_404(id)
         lru_cache.put(id, person)  # Lägg till personen i cachen
+    else:
+        print(f"Hämtar från cachen: Person ID {id}")
     return render_template('person.html', person=person)
+

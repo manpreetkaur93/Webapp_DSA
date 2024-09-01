@@ -15,7 +15,8 @@ class Person(db.Model):
     city = db.Column(db.String(255), nullable=False)
     country = db.Column(db.String(255), nullable=False)
     profession = db.Column(db.String(255), nullable=False)
-    phone_number = db.Column(db.String(15), nullable=False)
+    phone_number = db.Column(db.String(30), nullable=False)
+
 
 def generate_person():
     """Genererar en ny person med falska data."""
@@ -28,7 +29,7 @@ def generate_person():
         phone_number=fake.phone_number()
     )
 
-def seed_database(n=1000000):
+def seed_database(n=1000):
     """Skapar och sparar n antal personer i databasen."""
     people = []
     for _ in range(n):
