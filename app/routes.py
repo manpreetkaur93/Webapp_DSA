@@ -12,9 +12,10 @@ import time
 routes = Blueprint('routes', __name__)
 
 @routes.route('/')
+@routes.route('/index')
 def index():
     page = request.args.get('page', 1, type=int)
-    people = Person.query.paginate(page=page, per_page=20)
+    people = Person.query.paginate(page=page, per_page=20,error_out=False)
     return render_template('index.html', people=people.items, pagination=people)
 
 @routes.route('/person/<int:id>')
