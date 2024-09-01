@@ -5,8 +5,25 @@
 {% block content %}
 <h2>Person List</h2>
 <ul>
-    {% for person in persons %}
-    <li>{{ person.name }} - <a href="{{ url_for('person', id=person.id) }}">{{ person.city }}</a></li>
+    {% for person in people %}
+    <li>{{ person.name }} - <a href="{{ url_for('routes.person', id=person.id) }}">{{ person.city }}</a></li>
     {% endfor %}
 </ul>
+
+<div class="pagination">
+    {% if pagination.has_prev %}
+        <a href="{{ url_for('routes.index', page=pagination.prev_num) }}">Previous</a>
+    {% else %}
+        <span>Previous</span>
+    {% endif %}
+
+    <span>Page {{ pagination.page }} of {{ pagination.pages }}</span>
+
+    {% if pagination.has_next %}
+        <a href="{{ url_for('routes.index', page=pagination.next_num) }}">Next</a>
+    {% else %}
+        <span>Next</span>
+    {% endif %}
+</div>
 {% endblock %}
+

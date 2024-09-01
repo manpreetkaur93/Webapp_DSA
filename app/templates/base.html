@@ -9,11 +9,18 @@
 <body>
     <header>
         <h1>My App</h1>
+        <nav>
+            <a href="{{ url_for('routes.index') }}">Home</a>
+        </nav>
     </header>
 
     <main>
         {% block content %}{% endblock %}
     </main>
+
+    <footer>
+        <p>&copy; 2024 My App</p>
+    </footer>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>

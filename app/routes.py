@@ -5,16 +5,24 @@
 
 # routes.py
 from flask import Blueprint, render_template, request
-from app.lru_cache import lru_cache
+from app.lru_cache import lru_cache  # Importerar din LRU-cache
+from app.model import Person
+import time
 
 routes = Blueprint('routes', __name__)
 
 @routes.route('/')
 def index():
-    # Din logik här
-    return render_template('index.html')
+    page = request.args.get('page', 1, type=int)
+    people = Person.query.paginate(page=page, per_page=20)
+    return render_template('index.html', people=people.items, pagination=people)
 
 @routes.route('/person/<int:id>')
 def person(id):
-    # Din logik här
-    return f"Person with id {id}"
+    person = lru_cache.get(id)
+    if person is None:
+        # Simulerar långsam databasförfrågan med en fördröjning
+        time.sleep(5)
+        person = Person.query.get_or_404(id)
+        lru_cache.put(id, person)  # Lägg till personen i cachen
+    return render_template('person.html', person=person)
