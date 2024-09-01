@@ -15,11 +15,14 @@ routes = Blueprint('routes', __name__)
 @routes.route('/index')
 def index():
     page = request.args.get('page', 1, type=int)
-    people = Person.query.paginate(page=page, per_page=20,error_out=False)
-    return render_template('index.html', people=people.items, pagination=people)
+    prev_page = request.args.get('prev_page', None)
+    pagination = Person.query.paginate(page=page, per_page=20, error_out=False)
+    people = pagination.items
+    return render_template('index.html', people=people, pagination=pagination, prev_page=prev_page)
 
 @routes.route('/person/<int:id>')
 def person(id):
+    prev_page = request.args.get('prev_page', None)  # Hämta föregående sida från URL-parametrarna
     person = lru_cache.get(id)
     if person is None:
         print(f"Hämtar från databasen: Person ID {id}")
@@ -28,5 +31,4 @@ def person(id):
         lru_cache.put(id, person)  # Lägg till personen i cachen
     else:
         print(f"Hämtar från cachen: Person ID {id}")
-    return render_template('person.html', person=person)
-
+    return render_template('person.html', person=person, prev_page=prev_page)

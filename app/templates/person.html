@@ -9,5 +9,5 @@
 <p><strong>Country:</strong> {{ person.country }}</p>
 <p><strong>Profession:</strong> {{ person.profession }}</p>
 <p><strong>Phone Number:</strong> {{ person.phone_number }}</p>
-<a href="{{ url_for('routes.index') }}">Back to List</a>
+<a href="{{ url_for('routes.index', page=prev_page) }}">Back to List</a>
 {% endblock %}
