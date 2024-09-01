@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f0f0;
     color: #333;
     margin: 0;
     padding: 0;
@@ -9,12 +9,85 @@ body {
 header {
     background-color: #333;
     color: #fff;
-    padding: 10px 0;
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.5rem;
+}
+
+header nav {
+    margin-top: 10px;
+}
+
+header nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+}
+
+header nav a:hover {
+    color: #fff;
 }
 
 main {
     padding: 20px;
+    max-width: 800px;
+    margin: 20px auto;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+form input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form select, form button {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #333;
+    color: #fff;
+    margin-left: 10px;
+}
+
+form button {
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+ul li a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+ul li a:hover {
+    text-decoration: underline;
 }
 
 .pagination {
@@ -22,24 +95,21 @@ main {
     text-align: center;
 }
 
-.pagination a {
+.pagination a, .pagination span {
     margin: 0 5px;
-    text-decoration: none;
-    color: #333;
-    padding: 5px 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-.pagination a:hover {
-    background-color: #ddd;
-}
-
-.pagination strong {
-    margin: 0 5px;
-    padding: 5px 10px;
-    border: 1px solid #333;
+    padding: 8px 16px;
+    border: 1px solid #ccc;
     border-radius: 4px;
     background-color: #333;
     color: #fff;
+    text-decoration: none;
+}
+
+.pagination a:hover {
+    background-color: #555;
+}
+
+.pagination span {
+    background-color: #ccc;
+    color: #333;
 }
