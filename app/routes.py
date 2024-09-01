@@ -12,13 +12,16 @@ import time
 routes = Blueprint('routes', __name__)
 
 @routes.route('/')
+def home():
+    return render_template('home.html')
+
 @routes.route('/index')
 def index():
     page = request.args.get('page', 1, type=int)
     prev_page = request.args.get('prev_page', None)
     search_query = request.args.get('search', '')
-    sort_by = request.args.get('sort_by', 'name')
-    sort_order = request.args.get('sort_order', 'asc')
+    sort_by = request.args.get('sort_by', 'random')
+    sort_order = request.args.get('sort_order', 'none')
     filter_celebs = request.args.get('filter_celebs', 'no')
 
     query = Person.query
@@ -35,14 +38,14 @@ def index():
 
     # Sortering
     if sort_by == 'random':
-        query = query.order_by(db.func.random())  # Blandad ordning
+        query = query.order_by(db.func.rand())  # Använd db.func.rand() för slumpmässig ordning
     else:
         if sort_order == 'asc':
             query = query.order_by(getattr(Person, sort_by).asc())
         elif sort_order == 'desc':
             query = query.order_by(getattr(Person, sort_by).desc())
 
-   # Filtrering för kändisar
+    # Filtrering för kändisar
     if filter_celebs == 'yes':
         query = query.order_by(Person.is_celebrity.desc(), getattr(Person, sort_by).asc() if sort_order == 'asc' else getattr(Person, sort_by).desc())
 

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to Webb App{% endblock %}
+
+{% block content %}
+<h2>Välkommen till Webb App</h2>
+<p>Detta är en enkel applikation som låter dig hantera en stor mängd persondata. Du kan söka, sortera och filtrera personer samt visa deras detaljerade profil.</p>
+<p>För att börja använda applikationen, navigera till <a href="{{ url_for('routes.index') }}">Persondata</a>-sidan. Där kan du söka efter personer, filtrera resultat, och klicka på en persons namn för att visa deras fullständiga profil.</p>
+{% endblock %}
+
