@@ -1,8 +1,3 @@
-#filen innehåller alla inställningar och konfigurationer för din Flask-applikation, såsom databasuppkopplingar och API-nycklar.
-
-#Exempel på inställningar:
-# SECRET_KEY: Används av Flask för säkerhetsfunktioner, såsom sessionshantering.
-# SQLALCHEMY_DATABASE_URI: Här ställer du in din databasanslutning.
 import os
 
 class Config:
