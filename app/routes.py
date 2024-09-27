@@ -1,14 +1,11 @@
  #Innehåller definitionerna av applikationens rutter (de URL
 # som användarna kan besöka).
-# Här specificerar du vad som ska hända när en användare går till en specifik URL, till exempel att rendera en HTML-sida eller interagera med databasen.
-# routes.py
-
-# routes.py
+# Här specificerar jag vad som ska hända när en användare går till en specifik URL, till exempel att rendera en HTML-sida eller interagera med databasen.
 from flask import Blueprint, render_template, request
-from app.lru_cache import lru_cache  # Importerar din LRU-cache
+from app.lru_cache import lru_cache
 from app.models import Person, db
 import time
-from sqlalchemy.sql.expression import func  # För random sortering
+from sqlalchemy.sql.expression import func 
 
 routes = Blueprint('routes', __name__)
 

@@ -1,5 +1,4 @@
-'''Denna fil innehåller databasmodeller, som är Python-klasser som representerar tabeller i din databas.
-Om du använder en ORM (Object-Relational Mapping) som SQLAlchemy, definieras varje tabell i databasen som en klass i den här filen.'''
+'''Databasmodeller som är Python-klasser som representerar tabeller i din databas.'''
 import time
 from flask_sqlalchemy import SQLAlchemy
 from faker import Faker
@@ -78,8 +77,6 @@ def seed_database(n=1000000, batch_size=100000):
         except IntegrityError as e:
             db.session.rollback()
             print(f"IntegrityError vid seedning av batch {total_seeded // batch_size + 1}: {e}")
-            # Här kan du implementera logik för att hantera duplicater, t.ex. regenerera vissa poster
-            # För enkelhetens skull, här stoppar vi processen
             break
     
     print(f"Totalt seedade {total_seeded} personer till databasen.")
